@@ -3,7 +3,7 @@ if ~exist('initialized','var')
     addpath([pwd,'\sgp4']);
     initialized = true;
 end
-[SIDs,ToT]=getschedule('meogen.sch');
+[SIDs,ToT]=getschedule('meogen_2023-10-03.sch');
 readtle(ToT(1));
 
 lat0 = 13.036;
@@ -21,17 +21,19 @@ det = zeros(7,noOfBurst,noOfPos,'logical');
 lat=NaN(noOfBurst,noOfPos);
 lon=NaN(noOfBurst,noOfPos);
 rng default
-
-for j=188%+(-1:1)%1:noOfPos
+tic
+for j=301:noOfPos
     TxSite=lla2ecef([TxLat(j),TxLon(j),h0])'*1e-3;j
     for i=1:noOfBurst
         [TOA,FOA,chn]=TRxOperation(SIDs(i,:),ToT(i),FoT,TxSite,RxSite);
         CNR=35*ones(size(TOA));
         if length(chn)>=3
-            [loc,err,antsV,sInfo]=computeLocation(TOA,FOA,CNR,SIDs(i,chn),RxSite);           
-            error(i,j)=distance(loc.lat,loc.lon,TxLat(j),TxLon(j),referenceEllipsoid('WGS84'))*1e-3;
-            lat(i,j)=loc.lat;
-            lon(i,j)=loc.lon;
+            [loc,err,antsV,sInfo]=computeLocation(TOA,FOA,CNR,SIDs(i,chn),RxSite);
+            if ~isempty(loc)
+                error(i,j)=distance(loc.lat,loc.lon,TxLat(j),TxLon(j),referenceEllipsoid('WGS84'))*1e-3;
+                lat(i,j)=loc.lat;
+                lon(i,j)=loc.lon;
+            end
         end
         det(chn,i,j)= true;
     end
@@ -44,7 +46,7 @@ prLoc10=zeros(1,noOfPos);
 prAcc5=zeros(1,noOfPos);
 prAcc5_10=zeros(1,noOfPos);
 prAcc10_10=zeros(1,noOfPos);
-for j=188%+(-1:1)
+for j=301:noOfPos
     %singleburst
     d=det(:,:,j);
     d1=any(d,1);
@@ -81,6 +83,7 @@ for j=188%+(-1:1)
     errorWithin10km_10 = sum(error10<10);
     prAcc10_10(j)=errorWithin10km_10/noOfSol10;
 end
+toc
 function initializeRecord()
 %INITIALIZERECORD Summary of this function goes here
 %   Detailed explanation goes here

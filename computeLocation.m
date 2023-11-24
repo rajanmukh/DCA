@@ -257,7 +257,7 @@ end
 
 function [terrstd,ferrstd] = estimateMeasError(cbn0)
 terrstd=0.3*15*ones(size(cbn0))';
-ferrstd=0.7e-3*0.3*ones(size(cbn0))';
+ferrstd=0.7e-3*0.2*ones(size(cbn0))';
 end
 
 function t=split2fields(toa)

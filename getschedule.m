@@ -62,7 +62,7 @@ satname = dataArray{:, 2};
 chn = str2double(extractAfter(dataArray{:, 3},1));
 aos = dataArray{:, 4};
 los = dataArray{:, 5};
-t= datetime(dt(1),'InputFormat','yyyy-MM-dd')+(300:50:86400-9350)/86400;
+t= datetime(strcat(dt(1),'04:00:00'),'InputFormat','yyyy-MM-dd HH:mm:ss')+(0:50:86400-50)/86400;
 sids=zeros(length(t),7);
 load('prns.mat','prns')
 for i=1:7
@@ -71,15 +71,16 @@ for i=1:7
     LOS=datetime(strcat(dt(sel),los(sel)),'InputFormat','yyyy-MM-dd HH:mm:ss');
     sname = satname(sel);
     m=1;
-    
-    for j=1:length(t)
-        %select segment
-        if isbetween(t(j),AOS(m),LOS(m))
-            sids(j,i)=getSID(char(sname(m)),prns);
-        else
-            if m < length(AOS)
-                if t(j) > AOS(m+1)
-                    m=m+1;
+    if ~isempty(AOS)
+        for j=1:length(t)
+            %select segment
+            if isbetween(t(j),AOS(m),LOS(m))
+                sids(j,i)=getSID(char(sname(m)),prns);
+            else
+                if m < length(AOS)
+                    if t(j) > AOS(m+1)
+                        m=m+1;
+                    end
                 end
             end
         end

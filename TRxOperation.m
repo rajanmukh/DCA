@@ -18,7 +18,7 @@ fc1=FoT+fd1+freq_trns;
 fd2 = getDoppler(posS1,velS1,RxSite,fc1);
 %total with noise added
 TOA=ToT+(dt1+dt2+15e-6*randn(1,noOfSats))/86400;
-FOA=fc1+fd2-53.1311e3-f_list(cflag)+1e5+0.3*randn(1,noOfSats);
+FOA=fc1+fd2-53.1311e3-f_list(cflag)+1e5+0.2*randn(1,noOfSats);
 els=getAngles(posS,TxSite);
 det=detDecesion(els);
 chn=validChns(det);
