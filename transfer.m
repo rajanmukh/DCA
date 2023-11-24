@@ -1,0 +1,14 @@
+load('data1.mat')
+x=prLoc10;
+load('data2.mat')
+x(151:300)=prLoc10(151:300);
+load('data3.mat')
+x(301:397)=prLoc10(301:397);
+prLoc10=NaN(size(TxLat));
+prLoc10(within6000km)=x;
+mi=min(prLoc10(~isnan(prLoc10)));
+ma=max(prLoc10(~isnan(prLoc10)));
+i1=round(((mi-0.3)/0.7)*63+1);
+i2=round(((ma-0.3)/0.7)*63+1);
+m=colormap('parula');
+cmap=m(i1:i2,:);

@@ -57,34 +57,45 @@ fclose(fileID);
 % script.
 
 %% Allocate imported array to column variable names
-dt = dataArray{:, 1};
+dt = char(strtrim(dataArray{:, 1}));
 satname = dataArray{:, 2};
 chn = str2double(extractAfter(dataArray{:, 3},1));
-aos = dataArray{:, 4};
-los = dataArray{:, 5};
-t= datetime(strcat(dt(1),'04:00:00'),'InputFormat','yyyy-MM-dd HH:mm:ss')+(0:50:86400-50)/86400;
+aos = char(strtrim(dataArray{:, 4}));
+los = char(strtrim(dataArray{:, 5}));
+t= datetime([dt(1,:),' ','04:00:00'],'InputFormat','yyyy-MM-dd HH:mm:ss')+(50:50:1728*50)/86400;
 sids=zeros(length(t),7);
 load('prns.mat','prns')
 for i=1:7
-    sel=chn==i;
-    AOS=datetime(strcat(dt(sel),aos(sel)),'InputFormat','yyyy-MM-dd HH:mm:ss');
-    LOS=datetime(strcat(dt(sel),los(sel)),'InputFormat','yyyy-MM-dd HH:mm:ss');
-    sname = satname(sel);
+    sel=chn==i;    
+    AOS=datetime([dt(sel,:),repmat(' ',sum(sel),1),aos(sel,:)],'InputFormat','yyyy-MM-dd HH:mm:ss');
+    LOS=datetime([dt(sel,:),repmat(' ',sum(sel),1),los(sel,:)],'InputFormat','yyyy-MM-dd HH:mm:ss');
+    if isnat(AOS)
+        continue;
+    end
+    for k=1:length(AOS)
+        if LOS(k) < AOS(k)
+            LOS(k) = LOS(k)+1;
+        end
+    end
+    sname = satname(sel);   
+    j=1;
     m=1;
-    if ~isempty(AOS)
-        for j=1:length(t)
-            %select segment
-            if isbetween(t(j),AOS(m),LOS(m))
-                sids(j,i)=getSID(char(sname(m)),prns);
-            else
-                if m < length(AOS)
-                    if t(j) > AOS(m+1)
-                        m=m+1;
-                    end
+    while j<=length(t)
+        %select segment
+        if isbetween(t(j),AOS(m),LOS(m))
+            sids(j,i)=getSID(char(sname(m)),prns);
+            j=j+1;
+        else
+            if m < length(AOS)
+                if t(j) > AOS(m+1)
+                    m=m+1;
+                else
+                    j=j+1;
                 end
             end
         end
     end
+    
 end
 end
 

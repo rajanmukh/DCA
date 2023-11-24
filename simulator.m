@@ -22,7 +22,7 @@ lat=NaN(noOfBurst,noOfPos);
 lon=NaN(noOfBurst,noOfPos);
 rng default
 tic
-for j=301:noOfPos
+for j=188
     TxSite=lla2ecef([TxLat(j),TxLon(j),h0])'*1e-3;j
     for i=1:noOfBurst
         [TOA,FOA,chn]=TRxOperation(SIDs(i,:),ToT(i),FoT,TxSite,RxSite);
@@ -46,7 +46,7 @@ prLoc10=zeros(1,noOfPos);
 prAcc5=zeros(1,noOfPos);
 prAcc5_10=zeros(1,noOfPos);
 prAcc10_10=zeros(1,noOfPos);
-for j=301:noOfPos
+for j=188
     %singleburst
     d=det(:,:,j);
     d1=any(d,1);

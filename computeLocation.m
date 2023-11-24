@@ -256,7 +256,7 @@ elpse=[1.4*ab(1),1.4*ab(2),A];
 end
 
 function [terrstd,ferrstd] = estimateMeasError(cbn0)
-terrstd=0.3*15*ones(size(cbn0))';
+terrstd=0.3*20*ones(size(cbn0))';
 ferrstd=0.7e-3*0.2*ones(size(cbn0))';
 end
 
