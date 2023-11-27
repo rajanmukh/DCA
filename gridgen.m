@@ -12,6 +12,6 @@ lats=lat0+(-60:5:60);
  within6000km=r<6000;                                                                                                                                               
 %  TxLat=TxLat(within6000km);                                                                                                                                         
 %  TxLon=TxLon(within6000km); 
-TxLat(~within6000km)=NaN;                                                                                                                                         
-TxLon(~within6000km)=NaN; 
+% TxLat(~within6000km)=NaN;                                                                                                                                         
+% TxLon(~within6000km)=NaN; 
 %  save('placementGrid','TxLat','TxLon');

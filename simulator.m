@@ -20,9 +20,8 @@ error=NaN(noOfBurst,noOfPos);
 det = zeros(7,noOfBurst,noOfPos,'logical');
 lat=NaN(noOfBurst,noOfPos);
 lon=NaN(noOfBurst,noOfPos);
-rng default
-tic
-for j=188
+range=101:200;
+for j=range
     TxSite=lla2ecef([TxLat(j),TxLon(j),h0])'*1e-3;j
     for i=1:noOfBurst
         [TOA,FOA,chn]=TRxOperation(SIDs(i,:),ToT(i),FoT,TxSite,RxSite);
@@ -46,7 +45,7 @@ prLoc10=zeros(1,noOfPos);
 prAcc5=zeros(1,noOfPos);
 prAcc5_10=zeros(1,noOfPos);
 prAcc10_10=zeros(1,noOfPos);
-for j=188
+for j=range
     %singleburst
     d=det(:,:,j);
     d1=any(d,1);
@@ -83,7 +82,7 @@ for j=188
     errorWithin10km_10 = sum(error10<10);
     prAcc10_10(j)=errorWithin10km_10/noOfSol10;
 end
-toc
+
 function initializeRecord()
 %INITIALIZERECORD Summary of this function goes here
 %   Detailed explanation goes here
