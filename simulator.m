@@ -3,7 +3,7 @@ if ~exist('initialized','var')
     addpath([pwd,'\sgp4']);
     initialized = true;
 end
-[SIDs,ToT]=getschedule('meogen_2023-10-03.sch');
+[SIDs,ToT]=getschedule('meogen_2023-11-27.sch');
 readtle(ToT(1));
 
 lat0 = 13.036;
@@ -20,7 +20,7 @@ error=NaN(noOfBurst,noOfPos);
 det = zeros(7,noOfBurst,noOfPos,'logical');
 lat=NaN(noOfBurst,noOfPos);
 lon=NaN(noOfBurst,noOfPos);
-range=101:200;
+range=1:noOfPos;
 for j=range
     TxSite=lla2ecef([TxLat(j),TxLon(j),h0])'*1e-3;j
     for i=1:noOfBurst
