@@ -3,9 +3,10 @@ if ~exist('initialized','var')
     addpath([pwd,'\sgp4']);
     initialized = true;
 end
-[SIDs,ToT]=getschedule('meogen_2023-11-27.sch');
-readtle(ToT(1));
+day1=datetime(2023,11,27);
 
+readtle(day1);
+[SIDs,ToT]=getschedule(day1);
 lat0 = 13.036;
 lon0= 77.5124;
 h0 = 0;
@@ -17,7 +18,7 @@ FoT=406.050e6;
 
 noOfBurst=length(ToT);
 error=NaN(noOfBurst,noOfPos);
-det = zeros(7,noOfBurst,noOfPos,'logical');
+det = zeros(size(SIDs,2),noOfBurst,noOfPos,'logical');
 lat=NaN(noOfBurst,noOfPos);
 lon=NaN(noOfBurst,noOfPos);
 range=1:noOfPos;
