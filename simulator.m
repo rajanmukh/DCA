@@ -3,7 +3,7 @@ if ~exist('initialized','var')
     addpath([pwd,'\sgp4']);
     initialized = true;
 end
-day1=datetime(2023,11,27);
+day1=datetime(2024,02,21);
 
 readtle(day1);
 [SIDs,ToT]=getschedule(day1);
@@ -40,12 +40,13 @@ for j=range
 end
 
 %statistics
-prDet=zeros(1,noOfPos);
-prLoc=zeros(1,noOfPos);
-prLoc10=zeros(1,noOfPos);
-prAcc5=zeros(1,noOfPos);
-prAcc5_10=zeros(1,noOfPos);
-prAcc10_10=zeros(1,noOfPos);
+prDet = zeros(1,noOfPos);
+prLoc = zeros(1,noOfPos);
+prLoc10 = zeros(1,noOfPos);
+prAcc5 = zeros(1,noOfPos);
+prAcc5_10 = zeros(1,noOfPos);
+prAcc10_10 = zeros(1,noOfPos);
+stderror = zeros(1,noOfPos);
 for j=range
     %singleburst
     d=det(:,:,j);
@@ -55,6 +56,7 @@ for j=range
     d3=sum(d,1)>=3;
     noOfSol=sum(d3);
     prLoc(j)=noOfSol/noOfBurst;
+    stderror(j) = (2/3)*rms(error(~isnan(error(:,j)) & error(:,j)<20,j));
     errorWithin5km = sum(error(:,j)<5);
     prAcc5(j)=errorWithin5km/noOfSol;
     errorWithin10km = sum(error(:,j)<10);

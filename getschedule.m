@@ -10,14 +10,14 @@ for i=1:300
     end
 end
 p(j:end)=[];
-satIDs=400+p;
+satIDs=300+p;
 
 lat0 = 13.036;
 lon0= 77.5124;
 h0 = 0;
 RxSite=lla2ecef([lat0,lon0,h0])'*1e-3;
 TOAs= day1+(50:300:86400)/86400;
-noOfSats=31;
+noOfSats=51;
 sids=zeros(length(TOAs),noOfSats);
 for i=1:length(TOAs)
     t=split2fields(repmat(TOAs(i),1,noOfSats));
@@ -46,7 +46,7 @@ noOfSats = length(satIDs);
 pos = zeros(3,noOfSats);
 vel = zeros(3,noOfSats);
 for i=1:noOfSats
-    satrec=list{satIDs(i)-400};
+    satrec=list{satIDs(i)-300};
     epochDay=satrec.epochdays;
     ts = toa.s(i);
     d = toa.d(i);

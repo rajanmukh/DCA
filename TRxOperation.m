@@ -3,7 +3,7 @@ validChns=find(satIDs);
 satIDs=satIDs(validChns);
 noOfSats=length(validChns);
 t0=split2fields(repmat(ToT,1,noOfSats));
-f_list=[1544.1e6,1544.9e6,1544.21e6];
+f_list=[1544.1e6,1544.1e6,1544.9e6,1544.21e6];
 %uplink
 t1=addSeconds(t0,0.16);
 [posS,velS,dt1]=actualtof(t1,satIDs,TxSite,'uplink');
@@ -12,12 +12,12 @@ t2=addSeconds(t0,0.08);
 fd1=getDoppler(posS1,velS1,TxSite,FoT);
 %downlink
 dt2=tof(posS,RxSite);
-cflag=floor(satIDs/100)-3;
+cflag=floor(satIDs/100)-2;
 freq_trns=f_list(cflag) - 406.05e6;
 fc1=FoT+fd1+freq_trns;
 fd2 = getDoppler(posS1,velS1,RxSite,fc1);
 %total with noise added
-TOA=ToT+(dt1+dt2+20e-6*randn(1,noOfSats))/86400;
+TOA=ToT+(dt1+dt2+12e-6*randn(1,noOfSats))/86400;
 FOA=fc1+fd2-53.1311e3-f_list(cflag)+1e5+0.2*randn(1,noOfSats);
 els=getAngles(posS,TxSite);
 det=detDecesion(els);
@@ -58,7 +58,7 @@ noOfSats = length(satIDs);
 pos = zeros(3,noOfSats);
 vel = zeros(3,noOfSats);
 for i=1:noOfSats
-    satrec=list{satIDs(i)-400};
+    satrec=list{satIDs(i)-300};
     epochDay=satrec.epochdays;
     ts = toa.s(i);
     d = toa.d(i);

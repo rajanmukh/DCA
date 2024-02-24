@@ -26,13 +26,15 @@ if ~isempty(files)
                     satno=str2double(extractBetween(longstr,10,11));
                 elseif startsWith(longstr,'GSAT')
                     satno=str2double(extractBetween(longstr,6,8));
+                elseif startsWith(longstr,'GPS')
+                    satno=50+str2double(extractBetween(longstr,18,19));
                 else
                     continue;
                 end
                 if satno>0 && satno<=300
                     satID=prns(satno);
                 end
-                if satID > 400
+                if satID > 300
                     longstr1=fgets(infile);
                     longstr2=fgets(infile);
                     % sgp4fix additional parameters to store from the TLE
@@ -45,7 +47,7 @@ if ~isempty(files)
                     [~,~,~, rec] = twoline2rv( ...
                         longstr1, longstr2, typerun, typeinput, opsmode, whichconst);
                     
-                    list{satID-400}=rec;
+                    list{satID-300}=rec;
                 end
             end
             

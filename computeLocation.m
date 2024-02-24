@@ -6,9 +6,9 @@ sInfo=[];
 %station location
 % RxSite=1e3*[1.344164600515364   6.068648167092199   1.429495327500622]';
 % STATIONARY=[0,0,0]';
-f_list=[1544.1e6,1544.9e6,1544.21e6];
+f_list=[1544.1e6,1544.1e6,1544.9e6,1544.21e6];
 noOfChns=length(satIDs);
-cflag=floor(satIDs/100)-3;
+cflag=floor(satIDs/100)-2;
 freq_trns=f_list(cflag) - 406.05e6;
 fc = foas+53.1311e3+f_list(cflag)-1e5;
 t0=split2fields(toas);
@@ -98,7 +98,7 @@ noOfSats = length(satIDs);
 pos = zeros(3,noOfSats);
 vel = zeros(3,noOfSats);
 for i=1:noOfSats
-    satrec=list{satIDs(i)-400};
+    satrec=list{satIDs(i)-300};
     epochDay=satrec.epochdays;
     ts = toa.s(i);
     d = toa.d(i);
@@ -256,7 +256,7 @@ elpse=[1.4*ab(1),1.4*ab(2),A];
 end
 
 function [terrstd,ferrstd] = estimateMeasError(cbn0)
-terrstd=0.3*20*ones(size(cbn0))';
+terrstd=0.3*12*ones(size(cbn0))';
 ferrstd=0.7e-3*0.2*ones(size(cbn0))';
 end
 
