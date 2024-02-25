@@ -11,11 +11,11 @@ prLoc=NaN(size(TxLat));
 prLoc(within6000km)=x;
 mi=min(prLoc(~isnan(prLoc)));
 ma=max(prLoc(~isnan(prLoc)));
-i1=round(((mi-0)/6)*256+1);
-i2=round(((ma-0)/6)*256+1);
+% i1=round(((mi-0)/6)*256+1);
+% i2=round(((ma-0)/6)*256+1);
 
-% i1=round(((mi-0.5)/0.5)*255+1);
-% i2=round(((ma-0.5)/0.5)*255+1);
+i1=round(((mi-0.5)/0.5)*255+1);
+i2=round(((ma-0.5)/0.5)*255+1);
 m=parula;
 cmap=m(i1-1:i2,:);
 worldmap(13+[-60 60],77.5+[-60 60]);

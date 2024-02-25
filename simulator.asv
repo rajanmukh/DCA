@@ -3,7 +3,7 @@ if ~exist('initialized','var')
     addpath([pwd,'\sgp4']);
     initialized = true;
 end
-day1=datetime(2023,11,27);
+day1=datetime(2024,02,21);
 
 readtle(day1);
 [SIDs,ToT]=getschedule(day1);
@@ -56,7 +56,7 @@ for j=range
     d3=sum(d,1)>=3;
     noOfSol=sum(d3);
     prLoc(j)=noOfSol/noOfBurst;
-    stderror(j) = std(error(~isnan(error(:,j)),j));
+    stderror(j) = (2/3)*rms(error(~isnan(error(:,j)) & error(:,j)<20,j));
     errorWithin5km = sum(error(:,j)<5);
     prAcc5(j)=errorWithin5km/noOfSol;
     errorWithin10km = sum(error(:,j)<10);

@@ -6,7 +6,7 @@ sInfo=[];
 %station location
 % RxSite=1e3*[1.344164600515364   6.068648167092199   1.429495327500622]';
 % STATIONARY=[0,0,0]';
-f_list=[1544.1e6,1544.1e6,1544.9e6,1544.21e6];
+f_list=[1544.1e6,1544.1e6,1544.9e6,1544.21e6,1544.1e6];
 noOfChns=length(satIDs);
 cflag=floor(satIDs/100)-2;
 freq_trns=f_list(cflag) - 406.05e6;

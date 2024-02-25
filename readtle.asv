@@ -4,7 +4,7 @@ typerun='m';
 typeinput='m';
 whichconst=84;
 global list;
-list=cell(1,500);
+list=cell(1,300);
 load('prns.mat','prns');
 files=dir('TLE\tle*');
 if ~isempty(files)
@@ -29,7 +29,7 @@ if ~isempty(files)
                 elseif startsWith(longstr,'GPS')
                     satno=50+str2double(extractBetween(longstr,18,19));
                 elseif startsWith(longstr,'NAVIC')
-                    satno=150+str2double(extractBetween(longstr,17,18));
+                    satno=50+str2double(extractBetween(longstr,18,19));
                 else
                     continue;
                 end

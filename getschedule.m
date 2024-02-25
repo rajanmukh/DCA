@@ -1,9 +1,9 @@
 function [sids,TOAs] = getschedule(day1)
 global list;
 
-p=zeros(1,300);
+p=zeros(1,500);
 j=1;
-for i=1:300
+for i=1:500
     if ~isempty(list{i})
         p(j)=i;
         j=j+1;
@@ -17,7 +17,7 @@ lon0= 77.5124;
 h0 = 0;
 RxSite=lla2ecef([lat0,lon0,h0])'*1e-3;
 TOAs= day1+(50:300:86400)/86400;
-noOfSats=51;
+noOfSats=77;
 sids=zeros(length(TOAs),noOfSats);
 for i=1:length(TOAs)
     t=split2fields(repmat(TOAs(i),1,noOfSats));

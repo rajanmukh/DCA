@@ -3,7 +3,7 @@ validChns=find(satIDs);
 satIDs=satIDs(validChns);
 noOfSats=length(validChns);
 t0=split2fields(repmat(ToT,1,noOfSats));
-f_list=[1544.1e6,1544.1e6,1544.9e6,1544.21e6];
+f_list=[1544.1e6,1544.1e6,1544.9e6,1544.21e6,1544.1e6];
 %uplink
 t1=addSeconds(t0,0.16);
 [posS,velS,dt1]=actualtof(t1,satIDs,TxSite,'uplink');
